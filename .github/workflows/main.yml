@@ -17,7 +17,7 @@ jobs:
       - name: Extract project ZIP
         run: |
           mkdir -p extracted
-          unzip -o LogeAchi-Android-GitHub.zip -d extracted
+          unzip -o LogeAchi-Android-GitHub.zip.zip -d extracted
           find extracted -name "gradlew" -exec chmod +x {} \;
 
       - name: Set up Java
