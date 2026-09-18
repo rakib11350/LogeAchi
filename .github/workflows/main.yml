@@ -1,4 +1,4 @@
-name: Build LogeAchi APK
+ name: Build LogeAchi APK
 
 on:
   workflow_dispatch:
@@ -17,7 +17,13 @@ jobs:
       - name: Extract project ZIP
         run: |
           mkdir -p extracted
-          unzip -o LogeAchi-Android-GitHub.zip.zip -d extracted
+          ZIP_FILE=$(find . -maxdepth 2 -name "*.zip" | head -n 1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "No zip file found!"
+            exit 1
+          fi
+          echo "Found ZIP file: $ZIP_FILE"
+          unzip -o "$ZIP_FILE" -d extracted
           find extracted -name "gradlew" -exec chmod +x {} \;
 
       - name: Set up Java
