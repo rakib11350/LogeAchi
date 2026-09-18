@@ -16,22 +16,24 @@ jobs:
 
       - name: Extract project ZIP
         run: |
-          unzip -o LogeAchi-Phone-Ready-LOGO-Included.zip -d extracted
+          mkdir -p extracted
+          unzip -o LogeAchi-Android-GitHub.zip -d extracted
+          find extracted -name "gradlew" -exec chmod +x {} \;
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Build APK
-        working-directory: extracted/loge/logeachi_android/android
         run: |
-          chmod +x gradlew
+          TARGET_DIR=$(dirname $(find extracted -name "gradlew" | head -n 1))
+          cd "$TARGET_DIR"
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: LogeAchi-debug-APK
-          path: extracted/loge/logeachi_android/android/app/build/outputs/apk/debug/app-debug.apk
+          path: extracted/**/*.apk
