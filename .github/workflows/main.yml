@@ -1,4 +1,4 @@
- name: Build LogeAchi APK
+name: LogeAchi Dot Com
 
 on:
   workflow_dispatch:
@@ -41,5 +41,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: LogeAchi-debug-APK
+          name: LogeAchi-dot-com
           path: extracted/**/*.apk
